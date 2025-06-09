@@ -5,6 +5,8 @@ import org.example.model.Cliente;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class Main {
     private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("crudPU");
@@ -13,8 +15,8 @@ public class Main {
     public static void main(String[] args) {
 
         // FIND
-       Cliente cliente = entityManager.find(Cliente.class, 1);
-       System.out.println("Nome do cliente:" + cliente.getNome());
+       //Cliente cliente = entityManager.find(Cliente.class, 1);
+       //System.out.println("Nome do cliente:" + cliente.getNome());
 
         // INSERT
 		//Cliente cliente = new Cliente();
@@ -38,6 +40,46 @@ public class Main {
 //		entityManager.getTransaction().begin();
 //		entityManager.merge(cliente);
 //		entityManager.getTransaction().commit();
+
+ //       String jpql = "select c from Cliente c";
+//		TypedQuery<Cliente> typedQuery = entityManager.createQuery(jpql, Cliente.class);
+//		List<Cliente> listaCliente = typedQuery.getResultList();
+//
+ //		for(Cliente cliente: listaCliente) {
+	//		System.out.println(cliente.getNome());
+//		}
+
+
+     //   String jpql = "select c from Cliente c where id = :idCliente ";
+    //    int idCliente = 10;
+
+      //  TypedQuery<Cliente> typedQuery = entityManager
+   //             .createQuery(jpql, Cliente.class)
+     //           .setParameter("idCliente", idCliente);
+      //  List<Cliente> listaCliente = typedQuery.getResultList();
+
+      //  for(Cliente cliente: listaCliente) {
+      //      System.out.println(cliente.getNome());
+       // }
+
+        entityManager.getTransaction().begin();
+
+//		int idCliente = 8;
+//
+//		entityManager.createQuery("delete from Cliente c where id = :idCliente")
+//			.setParameter("idCliente", idCliente)
+//			.executeUpdate();
+
+        int idCliente = 1;
+
+        entityManager.createQuery("update Cliente c set nome = 'FACEBOOK APP' where c.id = :idCliente")
+                .setParameter("idCliente", idCliente)
+                .executeUpdate();
+
+        entityManager.getTransaction().commit();
+
+
+
 
         entityManager.close();
         entityManagerFactory.close();
